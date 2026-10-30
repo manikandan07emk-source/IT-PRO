@@ -1,5 +1,6 @@
+
 import { useState, type ReactNode } from 'react';
-import { BookOpen, Menu, PenLine, X, type LucideIcon } from 'lucide-react';
+import { BookOpen, Menu, PenLine, X, Sparkles, type LucideIcon } from 'lucide-react';
 import { BrandMark } from '@/components/layout/BrandMark';
 import { navigateTo, type AppView } from '@/lib/router';
 
@@ -11,6 +12,7 @@ type AppShellProps = {
 const NAV_ITEMS: { view: AppView; label: string; icon: LucideIcon }[] = [
   { view: 'library', label: 'Question papers', icon: BookOpen },
   { view: 'editor', label: 'Editor', icon: PenLine },
+  { view: 'ai-doubt', label: 'AI Doubt', icon: Sparkles },
 ];
 
 export default function AppShell({ view, children }: AppShellProps) {
@@ -83,3 +85,4 @@ function NavButton({
     </button>
   );
 }
+
