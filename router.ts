@@ -1,15 +1,25 @@
 import { useEffect, useState } from 'react';
 
-export type AppView = 'library' | 'editor';
+export type AppView = 'library' | 'editor' | 'ai-doubt';
 
 function readView(): AppView {
-  return new URLSearchParams(window.location.search).get('view') === 'editor' ? 'editor' : 'library';
+  const view = new URLSearchParams(window.location.search).get('view');
+
+  if (view === 'editor') return 'editor';
+  if (view === 'ai-doubt') return 'ai-doubt';
+
+  return 'library';
 }
 
 export function navigateTo(view: AppView) {
   const url = new URL(window.location.href);
-  if (view === 'editor') url.searchParams.set('view', 'editor');
-  else url.searchParams.delete('view');
+
+  if (view === 'library') {
+    url.searchParams.delete('view');
+  } else {
+    url.searchParams.set('view', view);
+  }
+
   window.history.pushState({}, '', url);
   window.dispatchEvent(new PopStateEvent('popstate'));
 }
