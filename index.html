@@ -1,20 +1,186 @@
-<!doctype html>
+<!DOCTYPE html>
 <html lang="en">
-  <head>
-    <meta charset="UTF-8" />
-    <link rel="icon" type="image/svg+xml" href="/vite.svg" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <link rel="preconnect" href="https://fonts.googleapis.com" />
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-    <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;600;700;800&display=swap" rel="stylesheet" />
-    <meta name="description" content="IT PRO - Smart Exam Analyzer. Smart Learning. Better Results." />
-    <title>IT PRO - Smart Exam Analyzer</title>
-    <meta property="og:image" content="https://bolt.new/static/og_default.png" />
-    <meta name="twitter:card" content="summary_large_image" />
-    <meta name="twitter:image" content="https://bolt.new/static/og_default.png" />
-  </head>
-  <body>
-    <div id="root"></div>
-    <script type="module" src="/src/main.tsx"></script>
-  </body>
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>IT PRO - AI Academic Solver</title>
+  <style>
+    body { font-family: sans-serif; background: #fafafa; color: #333; margin: 0; padding: 20px; }
+    .card { max-width: 650px; margin: 0 auto; background: #fff; padding: 25px; border-radius: 12px; border: 2px solid #d4af37; box-shadow: 0 4px 15px rgba(0,0,0,0.05); }
+    h2 { color: #d4af37; text-align: center; margin-top: 0; }
+    select, textarea, button { width: 100%; margin-top: 10px; padding: 12px; border-radius: 6px; border: 1px solid #ccc; font-size: 15px; box-sizing: border-box; }
+    button { background: #d4af37; color: #fff; border: none; font-weight: bold; cursor: pointer; font-size: 16px; margin-top: 15px; }
+    button:hover { background: #b59226; }
+    #output { margin-top: 20px; padding: 15px; background: #fffdf5; border: 1px solid #e0d0a0; border-radius: 8px; white-space: pre-wrap; font-size: 15px; line-height: 1.6; }
+    .loading { text-align: center; color: #888; font-weight: bold; }
+  </style>
+</head>
+<body>
+
+<div class="card">
+  <h2>IT PRO - AI Subject Solver 🎓</h2>
+  
+  <label>Subject Pick Pannungada:</label>
+  <select id="subject">
+    <option value="Mathematics">Mathematics</option>
+    <option value="Physics">Physics</option>
+    <option value="Chemistry">Chemistry</option>
+    <option value="Computer Science">Computer Science</option>
+    <option value="Engineering">Engineering</option>
+  </select>
+
+  <label style="margin-top: 15px; display:block;">Unnga Kelvi (Question):</label>
+  <textarea id="question" rows="4" placeholder="Kelviya inge paste or type pannunga..."></textarea>
+
+  <button onclick="getAIAnswer()">Submit Question 🚀</button>
+
+  <div id="output">Solution inge varum bro...</div>
+</div>
+
+<script>
+  // 🔑 UNGA GEMINI API KEY-A INGE PASTE PANNUNGA
+  const API_KEY = "YOUR_GEMINI_API_KEY_HERE"; 
+
+  async function getAIAnswer() {
+    const question = document.getElementById("question").value;
+    const subject = document.getElementById("subject").value;
+    const output = document.getElementById("output");
+
+    if (!question.trim()) {
+      alert("Mundhalas kelviya type pannu bro!");
+      return;
+    }
+
+    if (API_KEY === "YOUR_GEMINI_API_KEY_HERE" || !API_KEY) {
+      alert("API Key innum podala bro! Google AI Studio-la key eduthu code-la paste pannunga.");
+      return;
+    }
+
+    output.innerHTML = "<p class='loading'>AI Yosikithu... Wait pannu bro! ⏳</p>";
+
+    const promptText = `You are an expert tutor for ${subject}. 
+Please answer this question step-by-step:
+"${question}"
+
+Provide the answer in 2 clear sections:
+1. English Step-by-Step Explanation
+2. Tamil (Tanglish/Tamil) Easy Explanation`;
+
+    try {
+      const response = await fetch(`https://generativelanguage.googleapis.com/v1beta/models/gemini-1.5-flash:generateContent?key=${API_KEY}`, {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({
+          contents: [{ parts: [{ text: promptText }] }]
+        })
+      });
+
+      const data = await response.json();
+      
+      if (data.candidates && data.candidates[0].content.parts[0].text) {
+        output.innerText = data.candidates[0].content.parts[0].text;
+      } else {
+        output.innerText = "Kadhai kettu pochina error vandhuruchu bro. Key correct-a irukkanu paarungada.";
+      }
+    } catch (err) {
+      output.innerText = "Network Error bro: " + err.message;
+    }
+  }
+</script>
+
+</body>
 </html>
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>IT PRO - AI Academic Solver</title>
+  <style>
+    body { font-family: sans-serif; background: #fafafa; color: #333; margin: 0; padding: 20px; }
+    .card { max-width: 650px; margin: 0 auto; background: #fff; padding: 25px; border-radius: 12px; border: 2px solid #d4af37; box-shadow: 0 4px 15px rgba(0,0,0,0.05); }
+    h2 { color: #d4af37; text-align: center; margin-top: 0; }
+    select, textarea, button { width: 100%; margin-top: 10px; padding: 12px; border-radius: 6px; border: 1px solid #ccc; font-size: 15px; box-sizing: border-box; }
+    button { background: #d4af37; color: #fff; border: none; font-weight: bold; cursor: pointer; font-size: 16px; margin-top: 15px; }
+    button:hover { background: #b59226; }
+    #output { margin-top: 20px; padding: 15px; background: #fffdf5; border: 1px solid #e0d0a0; border-radius: 8px; white-space: pre-wrap; font-size: 15px; line-height: 1.6; }
+    .loading { text-align: center; color: #888; font-weight: bold; }
+  </style>
+</head>
+<body>
+
+<div class="card">
+  <h2>IT PRO - AI Subject Solver 🎓</h2>
+  
+  <label>Subject Pick Pannungada:</label>
+  <select id="subject">
+    <option value="Mathematics">Mathematics</option>
+    <option value="Physics">Physics</option>
+    <option value="Chemistry">Chemistry</option>
+    <option value="Computer Science">Computer Science</option>
+    <option value="Engineering">Engineering</option>
+  </select>
+
+  <label style="margin-top: 15px; display:block;">Unnga Kelvi (Question):</label>
+  <textarea id="question" rows="4" placeholder="Kelviya inge paste or type pannunga..."></textarea>
+
+  <button onclick="getAIAnswer()">Submit Question 🚀</button>
+
+  <div id="output">Solution inge varum bro...</div>
+</div>
+
+<script>
+  // 🔑 UNGA GEMINI API KEY-A INGE PASTE PANNUNGA
+  const API_KEY = "YOUR_GEMINI_API_KEY_HERE"; 
+
+  async function getAIAnswer() {
+    const question = document.getElementById("question").value;
+    const subject = document.getElementById("subject").value;
+    const output = document.getElementById("output");
+
+    if (!question.trim()) {
+      alert("Mundhalas kelviya type pannu bro!");
+      return;
+    }
+
+    if (API_KEY === "YOUR_GEMINI_API_KEY_HERE" || !API_KEY) {
+      alert("API Key innum podala bro! Google AI Studio-la key eduthu code-la paste pannunga.");
+      return;
+    }
+
+    output.innerHTML = "<p class='loading'>AI Yosikithu... Wait pannu bro! ⏳</p>";
+
+    const promptText = `You are an expert tutor for ${subject}. 
+Please answer this question step-by-step:
+"${question}"
+
+Provide the answer in 2 clear sections:
+1. English Step-by-Step Explanation
+2. Tamil (Tanglish/Tamil) Easy Explanation`;
+
+    try {
+      const response = await fetch(`https://generativelanguage.googleapis.com/v1beta/models/gemini-1.5-flash:generateContent?key=${API_KEY}`, {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({
+          contents: [{ parts: [{ text: promptText }] }]
+        })
+      });
+
+      const data = await response.json();
+      
+      if (data.candidates && data.candidates[0].content.parts[0].text) {
+        output.innerText = data.candidates[0].content.parts[0].text;
+      } else {
+        output.innerText = "Kadhai kettu pochina error vandhuruchu bro. Key correct-a irukkanu paarungada.";
+      }
+    } catch (err) {
+      output.innerText = "Network Error bro: " + err.message;
+    }
+  }
+</script>
+
+</body>
+</html>
+
+
