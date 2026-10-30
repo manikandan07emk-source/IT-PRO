@@ -1,0 +1,13 @@
+{
+  "projectId": "72507792",
+  "functions": {
+    "ai-question-helper": {
+      "hasChanged": false,
+      "hash": "055923f25a6bd71bc0da3622984cddfda6a124314eb9a8f9f2024c3eec38a1f9"
+    },
+    "ai-doubt-chat": {
+      "hasChanged": false,
+      "hash": "1439f9c6501ef949a37348a755103d7cf28102ec89aad68f34c036a8331a72aa"
+    }
+  }
+}

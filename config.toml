@@ -1,0 +1,5 @@
+[functions.ai-question-helper]
+verify_jwt = true
+
+[functions.ai-doubt-chat]
+verify_jwt = false
